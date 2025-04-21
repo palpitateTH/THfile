@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>全屏知识点展示</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow: hidden;
+        }
+        
+        .container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            background-color: white;
+            overflow: hidden;
+        }
+        
+        /* 中央图标样式 - 固定在视口中央 */
+        .center-image {
+            position: fixed;
+            top: 70%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: min(30vw, 300px);
+            height: min(30vw, 300px);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: clamp(18px, 2vw, 28px);
+            font-weight: bold;
+            text-align: center;
+            z-index: 1;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease;
+        }
+        
+        .center-image:hover {
+            transform: translate(-50%, -50%) scale(1.05);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+        }
+        
+        /* 知识点框通用样式 */
+        .knowledge-box {
+            position: fixed;
+            width: min(25vw, 300px);
+            background-color: white;
+            padding: min(2vw, 25px);
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+        
+        .knowledge-box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* 各知识点框定位 - 使用视口单位确保全屏不重叠 */
+        .html-box {
+            top: 3vh;
+            left: 40vw;
+            border-top: 4px solid #e74c3c;
+        }
+        
+        .css-box {
+            bottom: 10vh;
+            left: 15vw;
+            border-top: 4px solid #3498db;
+        }
+        
+        .js-box {
+            bottom: 10vh;
+            right: 15vw;
+            border-top: 4px solid #f39c12;
+        }
+        
+        /* 标题样式 */
+        h3 {
+            margin-bottom: min(1.5vw, 15px);
+            color: #2c3e50;
+            font-size: clamp(16px, 1.5vw, 20px);
+            padding-bottom: min(1vw, 10px);
+            border-bottom: 1px solid #eee;
+        }
+        
+        /* 列表样式 */
+        ul {
+            list-style-type: none;
+        }
+        
+        li {
+            position: relative;
+            padding: min(0.8vw, 8px) 0 min(0.8vw, 8px) min(2.5vw, 25px);
+            margin-bottom: min(0.5vw, 5px);
+            color: #34495e;
+            line-height: 1.5;
+            font-size: clamp(12px, 1.2vw, 16px);
+        }
+        
+        li::before {
+            content: "•";
+            color: #7f8c8d;
+            font-size: min(2vw, 20px);
+            position: absolute;
+            left: min(0.5vw, 5px);
+            top: min(0.5vw, 5px);
+        }
+        
+        /* 响应式调整 - 小屏幕改为单列布局 */
+        @media (max-width: 768px) {
+            .container {
+                height: auto;
+                min-height: 100vh;
+                padding-bottom: 20px;
+            }
+            
+            .center-image {
+                position: relative;
+                top: auto;
+                left: auto;
+                transform: none;
+                margin: 40px auto;
+                width: 200px;
+                height: 200px;
+            }
+            
+            .knowledge-box {
+                position: relative;
+                width: 80%;
+                margin: 20px auto;
+                top: auto;
+                bottom: auto;
+                left: auto;
+                right: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="center-image">
+            Web开发<br>核心技术
+        </div>
+        <div class="knowledge-box html-box">
+            <h3>HTML基础与HTML5</h3>
+            <ul>
+                <li>HTML文档结构与语义化标签</li>
+                <li>表单元素与输入类型</li>
+                <li>多媒体嵌入(视频/音频/Canvas)</li>
+                <li>Web存储与离线应用</li>
+                <li>地理定位API</li>
+                <li>响应式图像与picture元素</li>
+            </ul>
+        </div>
+        <div class="knowledge-box css-box">
+            <h3>CSS3与布局技术</h3>
+            <ul>
+                <li>Flexbox与Grid布局系统</li>
+                <li>CSS变量与自定义属性</li>
+                <li>过渡(transition)与动画(animation)</li>
+                <li>变换(transform)与3D效果</li>
+                <li>媒体查询与响应式设计</li>
+                <li>伪类与伪元素高级应用</li>
+            </ul>
+        </div>
+        <div class="knowledge-box js-box">
+            <h3>JavaScript核心技术</h3>
+            <ul>
+                <li>ES6+新特性(箭头函数,解构等)</li>
+                <li>异步编程(Promise, async/await)</li>
+                <li>DOM操作与事件处理</li>
+                <li>面向对象与原型链</li>
+                <li>模块化与打包工具</li>
+                <li>API调用与AJAX请求</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
