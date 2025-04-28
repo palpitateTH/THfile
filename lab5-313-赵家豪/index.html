@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>赵家豪的个人简历</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --light-bg: #f8f9fa;
+            --border-color: #ddd;
+            --shadow-color: rgba(0,0,0,0.1);
+            --text-color: #333;
+            --white: #fff;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .resume-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: var(--white);
+            border: 1px solid var(--border-color);
+            padding: 40px;
+            box-shadow: 0 0 20px var(--shadow-color);
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .resume-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-color), #9b59b6, #e74c3c, #f39c12, #2ecc71);
+            background-size: 500% 100%;
+            animation: gradientBg 8s ease infinite;
+        }
+        
+        @keyframes gradientBg {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .resume-title {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            color: var(--secondary-color);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .resume-title:hover {
+            transform: translateY(-3px);
+            text-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        }
+        
+        .resume-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background-color: var(--primary-color);
+            border-radius: 3px;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: var(--white);
+            border-radius: 6px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .section:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--secondary-color);
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light-bg);
+        }
+        
+        .section-title i {
+            margin-right: 10px;
+            color: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+        
+        .section:hover .section-title i {
+            transform: rotate(15deg) scale(1.1);
+        }
+        
+        .info-row {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+        
+        .info-item {
+            flex: 1;
+            min-width: 200px;
+            margin: 0 10px 15px 0;
+        }
+        
+        .info-item label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: var(--secondary-color);
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+        
+        .photo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0 auto 20px;
+            width: 150px;
+        }
+        
+        .photo-wrapper {
+            width: 120px;
+            height: 150px;
+            border: 2px dashed var(--border-color);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .photo-wrapper:hover {
+            border-color: var(--primary-color);
+            transform: scale(1.05);
+        }
+        
+        .photo-placeholder {
+            text-align: center;
+            color: #999;
+            padding: 10px;
+        }
+        
+        .photo-preview {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .upload-btn {
+            display: inline-block;
+            padding: 8px 15px;
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .upload-btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+        
+        .upload-btn i {
+            margin-right: 5px;
+        }
+        
+        #photo-upload {
+            display: none;
+        }
+        
+        .two-column {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .column {
+            flex: 1;
+        }
+        
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .skill-tag {
+            display: inline-flex;
+            align-items: center;
+            background-color: var(--light-bg);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .skill-tag:hover {
+            background-color: var(--primary-color);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+        
+        .skill-tag i {
+            margin-right: 5px;
+        }
+        
+        .add-skill {
+            display: flex;
+            margin-top: 10px;
+        }
+        
+        .add-skill input {
+            flex: 1;
+            margin-right: 10px;
+        }
+        
+        .add-skill-btn {
+            padding: 0 15px;
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .add-skill-btn:hover {
+            background-color: #2980b9;
+        }
+        
+        .save-btn {
+            display: block;
+            width: 180px;
+            margin: 40px auto 0;
+            padding: 12px;
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .save-btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        
+        .save-btn i {
+            margin-left: 5px;
+        }
+        
+        @media (max-width: 768px) {
+            .two-column {
+                flex-direction: column;
+            }
+            
+            .info-item {
+                min-width: 100%;
+            }
+            
+            .resume-container {
+                padding: 20px;
+            }
+        }
+        
+        /* 动画效果 */
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        .animated-icon {
+            animation: bounce 2s infinite;
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="resume-container">
+        <h1 class="resume-title">
+            <i class="fas fa-user-tie animated-icon"></i> 赵家豪的个人简历
+        </h1>
+        
+        <!-- 基本信息部分 -->
+        <div class="section">
+            <div class="section-title">
+                <i class="fas fa-id-card floating"></i> 基本信息
+            </div>
+            
+            <div class="photo-container">
+                <div class="photo-wrapper">
+                    <img id="photo-preview" class="photo-preview" src="1.jpg" alt="照片预览">
+                </div>
+                <label for="photo-upload" class="upload-btn">
+                    <i class="fas fa-camera"></i> 上传照片
+                </label>
+                <input type="file" id="photo-upload" accept="image/*">
+            </div>
+            
+            <div class="info-row">
+                <div class="info-item">
+                    <label for="name"><i class="fas fa-signature"></i> 姓名</label>
+                    <input type="text" id="name" placeholder="请输入您的姓名" value="赵家豪">
+                </div>
+                <div class="info-item">
+                    <label for="gender"><i class="fas fa-venus-mars"></i> 性别</label>
+                    <select id="gender">
+                        <option value="男" selected>男</option>
+                        <option value="女">女</option>
+                    </select>
+                </div>
+                <div class="info-item">
+                    <label for="age"><i class="fas fa-birthday-cake"></i> 年龄</label>
+                    <input type="number" id="age" placeholder="18" min="18" max="70">
+                </div>
+            </div>
+            
+            <div class="info-row">
+                <div class="info-item">
+                    <label for="hometown"><i class="fas fa-map-marker-alt"></i> 籍贯</label>
+                    <input type="text" id="hometown" placeholder="请输入籍贯" value="济南市">
+                </div>
+                <div class="info-item">
+                    <label for="phone"><i class="fas fa-phone"></i> 联系电话</label>
+                    <input type="tel" id="phone" placeholder="请输入联系电话" value="18865560230">
+                </div>
+                <div class="info-item">
+                    <label for="email"><i class="fas fa-envelope"></i> 电子邮箱</label>
+                    <input type="email" id="email" placeholder="请输入电子邮箱" value="3160390235@qq.com">
+                </div>
+            </div>
+            
+            <div class="info-row">
+                <div class="info-item">
+                    <label for="education"><i class="fas fa-graduation-cap"></i> 学历</label>
+                    <select id="education">
+                        <option value="高中">高中</option>
+                        <option value="大专">大专</option>
+                        <option value="本科" selected>本科</option>
+                        <option value="硕士">硕士</option>
+                        <option value="博士">博士</option>
+                    </select>
+                </div>
+                <div class="info-item">
+                    <label for="health"><i class="fas fa-heartbeat"></i> 健康状况</label>
+                    <input type="text" id="health" placeholder="请输入健康状况" value="健康">
+                </div>
+                <div class="info-item">
+                    <label for="marital-status"><i class="fas fa-heart"></i> 婚姻状况</label>
+                    <select id="marital-status">
+                        <option value="未婚" selected>未婚</option>
+                        <option value="已婚">已婚</option>
+                        <option value="离异">离异</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 求职意向部分 -->
+        <div class="section">
+            <div class="section-title">
+                <i class="fas fa-briefcase floating"></i> 求职意向
+            </div>
+            
+            <div class="info-row">
+                <div class="info-item">
+                    <label for="job-intention"><i class="fas fa-bullseye"></i> 求职意向</label>
+                    <input type="text" id="job-intention" placeholder="请输入求职意向" value="游戏设计师">
+                </div>
+                <div class="info-item">
+                    <label for="major"><i class="fas fa-book"></i> 专业</label>
+                    <input type="text" id="major" placeholder="请输入专业" value="软件工程">
+                </div>
+                <div class="info-item">
+                    <label for="school"><i class="fas fa-university"></i> 毕业院校</label>
+                    <input type="text" id="school" placeholder="请输入毕业院校" value="鲁东大学">
+                </div>
+            </div>
+        </div>
+        
+        <!-- 技能证书部分 -->
+        <div class="section">
+            <div class="section-title">
+                <i class="fas fa-certificate floating"></i> 技能证书
+            </div>
+            
+            <div class="skills-container" id="skills-container">
+                <div class="skill-tag">
+                    <i class="fas fa-check-circle"></i> 计算机二级
+                </div>
+            </div>
+            
+            <div class="add-skill">
+                <input type="text" id="new-skill" placeholder="计算机三级,英语六级,linux工程师认证书">
+                <button class="add-skill-btn" id="add-skill-btn">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- 两栏布局部分 -->
+        <div class="section">
+            <div class="two-column">
+                <div class="column">
+                    <div class="section-title">
+                        <i class="fas fa-star floating"></i> 个人特长与爱好
+                    </div>
+                    <textarea id="hobbies" placeholder="请在此填写您的特长与爱好">运动、Counter-Strike2
+		</textarea>
+		
+                </div>
+                <div class="column">
+                    <div class="section-title">
+                        <i class="fas fa-comment floating"></i> 自我评价
+                    </div>
+                    <textarea id="self-evaluation" placeholder="请在此填写您的自我评价">本人具备18年相关领域工作经验，扎实的专业基础，始终以积极进取的态度投入工作，注重专业能力与综合素质的协同提升。在专业能力方面，熟练掌握数据分析、项目管理软件等]，能独立完成[核心工作任务，如市场调研分析、方案策划执行，并在项目中通过优化流程、创新方法实现[效率提升30%]</textarea>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 项目经历部分 -->
+        <div class="section">
+            <div class="section-title">
+                <i class="fas fa-project-diagram floating"></i> 项目经历
+            </div>
+            <textarea id="project-experience" placeholder="请在此填写您的项目经历">智能供应链协同管理平台研发与落地
+项目时间：202X.XX-202X.XX
+项目角色：核心开发工程师/产品经理/数据分析负责人（根据实际角色填写）
+项目背景：
+针对传统供应链中信息孤岛严重、需求预测误差率超25%、库存周转率低于行业均值30%的问题，主导设计并落地基于AIoT的供应链协同平台，整合供应商、制造商、物流商三方数据，实现全链路透明化与智能化决策。；</textarea>
+        </div>
+        
+        <button class="save-btn" onclick="saveResume()">
+            <i class="fas fa-save"></i> 保存简历
+        </button>
+    </div>
+
+    <script>
+        // 照片上传功能
+        document.getElementById('photo-upload').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const preview = document.getElementById('photo-preview');
+                    preview.src = event.target.result;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // 添加技能证书功能
+        document.getElementById('add-skill-btn').addEventListener('click', function() {
+            const newSkill = document.getElementById('new-skill').value.trim();
+            if (newSkill) {
+                const skillTag = document.createElement('div');
+                skillTag.className = 'skill-tag';
+                skillTag.innerHTML = `<i class="fas fa-check-circle"></i> ${newSkill}`;
+                document.getElementById('skills-container').appendChild(skillTag);
+                document.getElementById('new-skill').value = '';
+                
+                // 添加动画效果
+                skillTag.style.opacity = '0';
+                skillTag.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    skillTag.style.transition = 'all 0.3s ease';
+                    skillTag.style.opacity = '1';
+                    skillTag.style.transform = 'translateY(0)';
+                }, 10);
+            }
+        });
+
+        // 回车键添加技能
+        document.getElementById('new-skill').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('add-skill-btn').click();
+            }
+        });
+
+        // 保存简历功能
+        function saveResume() {
+            // 收集所有技能标签
+            const skillTags = Array.from(document.querySelectorAll('.skill-tag'))
+                .map(tag => tag.textContent.trim());
+            
+            // 创建简历数据对象
+            const resumeData = {
+                name: document.getElementById('name').value,
+                gender: document.getElementById('gender').value,
+                age: document.getElementById('age').value,
+                hometown: document.getElementById('hometown').value,
+                phone: document.getElementById('phone').value,
+                email: document.getElementById('email').value,
+                education: document.getElementById('education').value,
+                health: document.getElementById('health').value,
+                maritalStatus: document.getElementById('marital-status').value,
+                jobIntention: document.getElementById('job-intention').value,
+                major: document.getElementById('major').value,
+                school: document.getElementById('school').value,
+                certificates: skillTags,
+                hobbies: document.getElementById('hobbies').value,
+                selfEvaluation: document.getElementById('self-evaluation').value,
+                projectExperience: document.getElementById('project-experience').value,
+                photo: document.getElementById('photo-preview').src
+            };
+            
+            // 这里可以添加实际保存逻辑，如发送到服务器或保存到本地存储
+            console.log('简历数据:', resumeData);
+            
+            // 显示保存成功动画
+            const saveBtn = document.querySelector('.save-btn');
+            saveBtn.innerHTML = '<i class="fas fa-check"></i> 保存成功!';
+            saveBtn.style.backgroundColor = '#2ecc71';
+            
+            setTimeout(() => {
+                saveBtn.innerHTML = '<i class="fas fa-save"></i> 保存简历';
+                saveBtn.style.backgroundColor = '';
+            }, 2000);
+        }
+        
+        // 初始化一些动画效果
+        document.querySelectorAll('.section-title i').forEach(icon => {
+            icon.addEventListener('mouseenter', function() {
+                this.style.transform = 'rotate(15deg) scale(1.2)';
+            });
+            
+            icon.addEventListener('mouseleave', function() {
+                this.style.transform = '';
+            });
+        });
+    </script>
+</body>
+</html>
