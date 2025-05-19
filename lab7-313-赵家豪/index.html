@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>七彩霓虹灯控制器</title>
+    <style>
+        body {
+            background-color: #000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+        
+        .control-panel {
+            margin-bottom: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            max-width: 600px;
+        }
+        
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 120px;
+        }
+        
+        .neon-container {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .lamp {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            position: relative;
+            animation: colorChange 7s infinite;
+            animation-play-state: running;
+        }
+        
+        .lamp::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: currentColor;
+            box-shadow: 0 0 15px currentColor, 
+                        0 0 30px currentColor;
+            animation: blink 7s infinite;
+            animation-play-state: inherit;
+        }
+        
+        /* 为每个灯设置不同的动画延迟 */
+        .lamp:nth-child(1) { animation-delay: 0s; }
+        .lamp:nth-child(1)::before { animation-delay: 0s; }
+        
+        .lamp:nth-child(2) { animation-delay: -1s; }
+        .lamp:nth-child(2)::before { animation-delay: -1s; }
+        
+        .lamp:nth-child(3) { animation-delay: -2s; }
+        .lamp:nth-child(3)::before { animation-delay: -2s; }
+        
+        .lamp:nth-child(4) { animation-delay: -3s; }
+        .lamp:nth-child(4)::before { animation-delay: -3s; }
+        
+        .lamp:nth-child(5) { animation-delay: -4s; }
+        .lamp:nth-child(5)::before { animation-delay: -4s; }
+        
+        .lamp:nth-child(6) { animation-delay: -5s; }
+        .lamp:nth-child(6)::before { animation-delay: -5s; }
+        
+        .lamp:nth-child(7) { animation-delay: -6s; }
+        .lamp:nth-child(7)::before { animation-delay: -6s; }
+        
+        @keyframes colorChange {
+            0%, 100% { color: #FF0000; }    /* 红 */
+            14.285% { color: #FF7F00; }     /* 橙 */
+            28.57% { color: #FFFF00; }      /* 黄 */
+            42.855% { color: #00FF00; }     /* 绿 */
+            57.14% { color: #0000FF; }      /* 蓝 */
+            71.425% { color: #4B0082; }     /* 靛 */
+            85.71% { color: #9400D3; }      /* 紫 */
+        }
+        
+        @keyframes blink {
+            0%, 8%, 16%, 24%, 32%, 40%, 48%, 56%, 64%, 72%, 80%, 88%, 96% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            4%, 12%, 20%, 28%, 36%, 44%, 52%, 60%, 68%, 76%, 84%, 92%, 100% {
+                opacity: 0.2;
+                transform: scale(0.8);
+            }
+        }
+        
+        button {
+            padding: 10px 20px;
+            background: #333;
+            color: white;
+            border: 1px solid #555;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        button:hover {
+            background: #444;
+        }
+        
+        label {
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        input[type="range"] {
+            width: 150px;
+        }
+        
+        .value-display {
+            margin-top: 5px;
+            font-size: 12px;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+    <h1>七彩霓虹灯控制器</h1>
+    
+    <div class="control-panel">
+        <div class="control-group">
+            <button id="toggleBtn">暂停</button>
+        </div>
+        
+        <div class="control-group">
+            <label for="speedControl">速度调节</label>
+            <input type="range" id="speedControl" min="0.5" max="3" step="0.1" value="1">
+            <div class="value-display" id="speedValue">1x</div>
+        </div>
+        
+        <div class="control-group">
+            <label for="sizeControl">灯光大小</label>
+            <input type="range" id="sizeControl" min="40" max="120" step="5" value="80">
+            <div class="value-display" id="sizeValue">80px</div>
+        </div>
+        
+        <div class="control-group">
+            <label for="gapControl">灯光间距</label>
+            <input type="range" id="gapControl" min="10" max="50" step="5" value="30">
+            <div class="value-display" id="gapValue">30px</div>
+        </div>
+    </div>
+    
+    <div class="neon-container" id="neonContainer">
+        <div class="lamp"></div>
+        <div class="lamp"></div>
+        <div class="lamp"></div>
+        <div class="lamp"></div>
+        <div class="lamp"></div>
+        <div class="lamp"></div>
+        <div class="lamp"></div>
+    </div>
+
+    <script>
+        // 获取DOM元素
+        const toggleBtn = document.getElementById('toggleBtn');
+        const speedControl = document.getElementById('speedControl');
+        const sizeControl = document.getElementById('sizeControl');
+        const gapControl = document.getElementById('gapControl');
+        const speedValue = document.getElementById('speedValue');
+        const sizeValue = document.getElementById('sizeValue');
+        const gapValue = document.getElementById('gapValue');
+        const neonContainer = document.getElementById('neonContainer');
+        const lamps = document.querySelectorAll('.lamp');
+        
+        // 动画状态
+        let isPlaying = true;
+        
+        // 暂停/播放控制
+        toggleBtn.addEventListener('click', () => {
+            isPlaying = !isPlaying;
+            toggleBtn.textContent = isPlaying ? '暂停' : '播放';
+            
+            lamps.forEach(lamp => {
+                lamp.style.animationPlayState = isPlaying ? 'running' : 'paused';
+            });
+        });
+        
+        // 速度控制
+        speedControl.addEventListener('input', (e) => {
+            const speed = e.target.value;
+            speedValue.textContent = `${speed}x`;
+            
+            lamps.forEach(lamp => {
+                lamp.style.animationDuration = `${7 / speed}s`;
+                lamp.querySelector('::before').style.animationDuration = `${7 / speed}s`;
+            });
+        });
+        
+        // 大小控制
+        sizeControl.addEventListener('input', (e) => {
+            const size = e.target.value;
+            sizeValue.textContent = `${size}px`;
+            
+            lamps.forEach(lamp => {
+                lamp.style.width = `${size}px`;
+                lamp.style.height = `${size}px`;
+            });
+        });
+        
+        // 间距控制
+        gapControl.addEventListener('input', (e) => {
+            const gap = e.target.value;
+            gapValue.textContent = `${gap}px`;
+            
+            neonContainer.style.gap = `${gap}px`;
+        });
+		 // 模式切换控制
+		        modeSelect.addEventListener('change', (e) => {
+		            const mode = e.target.value;
+		            colorPicker.classList.toggle('hidden', mode !== 'solid');
+		            
+		            lamps.forEach(lamp => {
+		                lamp.className = 'lamp';  // 清除所有模式类
+		                if (mode !== 'rainbow') lamp.classList.add(mode);
+		                if (mode === 'solid') lamp.style.color = colorPicker.value;
+		            });
+		        });
+    </script>
+</body>
+</html>
